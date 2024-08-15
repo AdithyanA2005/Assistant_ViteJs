@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Navbar } from "@/components/navbar";
+import { AuthProvider } from "@/components/providers/auth-provider.tsx";
 import { ThemeProvider } from "@/components/providers/theme-provider.tsx";
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
           <Route path="/signup" element={<></>} />
           <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Routes>
+
+        <AuthProvider />
       </ThemeProvider>
     </>
   );
