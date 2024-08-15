@@ -9,9 +9,9 @@ interface NavLogoProps {
 export function NavLogo({ className }: NavLogoProps) {
   return (
     <a
-      href="/public"
+      href="/"
       className={cn(
-        "group flex size-fit shrink-0 -translate-x-2 -translate-y-2 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary md:text-base",
+        "group flex size-fit shrink-0 items-center justify-center gap-2 rounded-full text-lg font-semibold text-primary md:text-base",
         className,
       )}
     >
