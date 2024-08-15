@@ -1,4 +1,5 @@
 import React from "react";
+import { Models } from "appwrite";
 import { LucideProps } from "lucide-react";
 
 export interface INavItem {
@@ -8,3 +9,10 @@ export interface INavItem {
   posBottom?: boolean;
   authRequired: boolean;
 }
+
+// APPWRITE
+export interface IUserPreferences {
+  photoFileId?: string;
+}
+
+export type IUser = Models.User<IUserPreferences>;
