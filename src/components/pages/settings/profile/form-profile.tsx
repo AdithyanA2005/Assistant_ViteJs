@@ -178,8 +178,8 @@ export function ProfileForm() {
               <FormLabel>Profile Photo</FormLabel>
               <FormControl className="text-base-semibold text-gray-200">
                 <>
-                  <div className="flex items-center gap-5 pt-1">
-                    <div className="aspect-square size-20 shrink-0 overflow-hidden rounded-full outline outline-accent md:size-32">
+                  <div className="flex flex-col items-center gap-5 pt-1 sm:flex-row">
+                    <div className="aspect-square size-32 shrink-0 overflow-hidden rounded-full outline outline-accent">
                       {avatar ? (
                         <img src={avatar} alt={avatar} width={100} height={100} className="size-full object-contain" />
                       ) : (
@@ -191,7 +191,7 @@ export function ProfileForm() {
                       <Input
                         type="file"
                         accept={SUPPORTED_IMAGE_FORMATS.join()}
-                        className="w-fit"
+                        className=""
                         placeholder="Add profile photo"
                         {...fileRef}
                       />
