@@ -1,4 +1,5 @@
 import { Home, LogInIcon, PaletteIcon, UserIcon, UserRoundPlusIcon } from "lucide-react";
+import { CommandPallet } from "@/components/command-palette";
 import { Logo } from "@/components/logo";
 import { INavItem } from "@/lib/types";
 import { useAuth } from "@/store/use-auth";
@@ -43,11 +44,14 @@ export function Navbar() {
   const { isAuthLoading, authStatus } = useAuth();
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
+    <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b bg-background px-4 sm:px-6">
       <div className="flex-1">
         <Logo />
       </div>
 
+      <div className="hidden sm:block">
+        <CommandPallet />
+      </div>
       <NavThemeToggle />
       <NavSidebar navItems={navItems} />
       {isAuthLoading ? <NavDropdownMenu.Skeleton /> : authStatus ? <NavDropdownMenu /> : null}

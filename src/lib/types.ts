@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Models } from "appwrite";
-import { LucideProps } from "lucide-react";
+import { LucideIcon, LucideProps } from "lucide-react";
 import { ETheme } from "@/lib/enums";
 
 export interface INavItem {
@@ -14,6 +14,13 @@ export interface INavItem {
 export interface IChat {
   text: string;
   owner: "user" | "bot";
+}
+
+export interface ICommand {
+  title: string;
+  Icon: LucideIcon;
+  action: () => void;
+  hidden?: boolean;
 }
 
 // APPWRITE

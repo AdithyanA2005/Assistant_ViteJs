@@ -10,3 +10,8 @@ export enum ETheme {
   Dark = "dark",
   System = "system",
 }
+
+export enum EModifierKey {
+  Mac = "⌘",
+  Others = "Ctrl",
+}
