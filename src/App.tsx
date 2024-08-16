@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { AuthWrapper } from "@/components/auth/auth-wrapper.tsx";
-import { SignInCard } from "@/components/auth/signin-card.tsx";
-import { SignUpCard } from "@/components/auth/signup-card.tsx";
 import { LoadingWrapper } from "@/components/loading/loading-wrapper.tsx";
 import { Navbar } from "@/components/navbar";
+import { AuthWrapper } from "@/components/pages/auth/auth-wrapper.tsx";
+import { SignInCard } from "@/components/pages/auth/signin-card.tsx";
+import { SignUpCard } from "@/components/pages/auth/signup-card.tsx";
 import { Protected } from "@/components/protected.tsx";
 import { AuthProvider } from "@/components/providers/auth-provider.tsx";
 import { OverlaysProvider } from "@/components/providers/overlays-provider.tsx";
