@@ -1,16 +1,16 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { LoadingWrapper } from "@/components/loading/loading-wrapper.tsx";
+import { LoadingWrapper } from "@/components/loading/loading-wrapper";
 import { Navbar } from "@/components/navbar";
-import { AuthWrapper } from "@/components/pages/auth/auth-wrapper.tsx";
-import { SignInCard } from "@/components/pages/auth/signin-card.tsx";
-import { SignUpCard } from "@/components/pages/auth/signup-card.tsx";
-import { Protected } from "@/components/protected.tsx";
-import { AuthProvider } from "@/components/providers/auth-provider.tsx";
-import { OverlaysProvider } from "@/components/providers/overlays-provider.tsx";
-import { ThemeProvider } from "@/components/providers/theme-provider.tsx";
-import { AppearanceSettings } from "@/components/settings/appearance";
-import { ProfileSettings } from "@/components/settings/profile";
-import { SettingsWrapper } from "@/components/settings/settings-wrapper.tsx";
+import { AuthWrapper } from "@/components/pages/auth/auth-wrapper";
+import { SignInCard } from "@/components/pages/auth/signin-card";
+import { SignUpCard } from "@/components/pages/auth/signup-card";
+import { AppearanceSettings } from "@/components/pages/settings/appearance";
+import { ProfileSettings } from "@/components/pages/settings/profile";
+import { SettingsWrapper } from "@/components/pages/settings/settings-wrapper";
+import { Protected } from "@/components/protected";
+import { AuthProvider } from "@/components/providers/auth-provider";
+import { OverlaysProvider } from "@/components/providers/overlays-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Home } from "./components/pages/home";
 
 function App() {

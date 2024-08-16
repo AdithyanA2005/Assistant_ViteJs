@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator.tsx";
-import { AppearanceForm } from "@/components/settings/appearance/appearance-form.tsx";
+import { AppearanceForm } from "./appearance-form.tsx";
 
 export function AppearanceSettings() {
   return (
