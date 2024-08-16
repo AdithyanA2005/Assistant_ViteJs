@@ -15,7 +15,7 @@ export function Logo({ className }: NavLogoProps) {
         className,
       )}
     >
-      <BotIcon className="size-8 transition-all group-hover:scale-110" />
+      <BotIcon className="size-full transition-all group-hover:scale-110" />
       <span className="sr-only">{siteConfig.name}</span>
     </a>
   );

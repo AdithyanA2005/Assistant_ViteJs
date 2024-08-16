@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Protected } from "@/components/protected.tsx";
 import { AuthProvider } from "@/components/providers/auth-provider.tsx";
 import { ThemeProvider } from "@/components/providers/theme-provider.tsx";
+import { Home } from "./components/home";
 
 function App() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoadingWrapper />}>
             <Route path="/" element={<Protected />}>
-              <Route path="/" element={<h1> Hello World</h1>} />
+              <Route path="/" element={<Home />} />
             </Route>
 
             <Route path="/" element={<AuthWrapper />}>
