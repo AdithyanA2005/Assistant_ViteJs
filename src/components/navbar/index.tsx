@@ -1,4 +1,4 @@
-import { Home } from "lucide-react";
+import { Home, LogInIcon, UserRoundPlusIcon } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { INavItem } from "@/lib/types.ts";
 import { useAuth } from "@/store/use-auth.ts";
@@ -12,6 +12,18 @@ const navItems: INavItem[] = [
     Icon: Home,
     url: "/",
     authRequired: true,
+  },
+  {
+    title: "SignIn",
+    Icon: LogInIcon,
+    url: "/signin",
+    authRequired: false,
+  },
+  {
+    title: "Register",
+    Icon: UserRoundPlusIcon,
+    url: "/signup",
+    authRequired: false,
   },
 ];
 

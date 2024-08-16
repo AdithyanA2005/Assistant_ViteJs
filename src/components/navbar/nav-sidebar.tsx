@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/logo";
 import { INavItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/store/use-auth.ts";
 import { NavItem } from "./nav-item";
 
 interface MobileNavProps {
@@ -14,6 +15,7 @@ interface MobileNavProps {
 }
 
 export function NavSidebar({ navItems, className }: MobileNavProps) {
+  const { authStatus } = useAuth();
   const [open, setOpen] = useState(false);
 
   return (
@@ -35,11 +37,13 @@ export function NavSidebar({ navItems, className }: MobileNavProps) {
           <nav className="flex h-full flex-col gap-6 text-lg font-medium">
             <Logo />
 
-            {navItems.map((navItem, index) => (
-              <div key={index} onClick={() => setOpen(false)} className={cn(navItem.posBottom ? "mt-auto" : "")}>
-                <NavItem {...navItem} />
-              </div>
-            ))}
+            {navItems
+              .filter((navItem) => navItem.authRequired === authStatus)
+              .map((navItem, index) => (
+                <div key={index} onClick={() => setOpen(false)} className={cn(navItem.posBottom ? "mt-auto" : "")}>
+                  <NavItem {...navItem} />
+                </div>
+              ))}
           </nav>
         </SheetContent>
       </Sheet>
