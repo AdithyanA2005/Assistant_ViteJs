@@ -1,4 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "@/components/ui/use-toast";
+import { auth } from "@/lib/appwrite/auth";
+import { ETheme } from "@/lib/enums";
+import { useAuth } from "@/store/use-auth";
 
 type Theme = "dark" | "light" | "system";
 
@@ -26,21 +30,53 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
+  const { authStatus } = useAuth();
   const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem(storageKey) as Theme) || defaultTheme);
 
+  // Get theme preference from the user account if user is authenticated
   useEffect(() => {
-    const root = window.document.documentElement;
+    (async function () {
+      try {
+        const themePref = await auth.getPreference<ETheme>("theme");
+        if (themePref) setTheme(themePref);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
-    root.classList.remove("light", "dark");
+  useEffect(() => {
+    // Apply theme changes in ui
+    const changeTheme = () => {
+      const root = window.document.documentElement;
+      root.classList.remove("light", "dark");
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      if (theme === "system") {
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        root.classList.add(systemTheme);
+        return;
+      }
+      root.classList.add(theme);
+    };
 
-      root.classList.add(systemTheme);
-      return;
-    }
+    // Update theme preference in appwrite
+    const updateThemeInPref = async () => {
+      if (!authStatus) return;
 
-    root.classList.add(theme);
+      try {
+        const newTheme = theme === "light" ? ETheme.Light : theme === "dark" ? ETheme.Dark : ETheme.System;
+        await auth.updatePreference<ETheme>("theme", newTheme);
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: (error as { message: string }).message,
+          variant: "destructive",
+        });
+      }
+    };
+
+    changeTheme();
+    updateThemeInPref().then();
   }, [theme]);
 
   const value = {
