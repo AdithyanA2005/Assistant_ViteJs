@@ -51,8 +51,12 @@ export function NavDropdownMenu() {
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <NavLink to="/settings">Settings</NavLink>
+          <NavLink to="/settings/profile">Profile</NavLink>
         </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <NavLink to="/settings/appearance">Appearance</NavLink>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <button onClick={signOutDialog.open} className="w-full">
             Logout
