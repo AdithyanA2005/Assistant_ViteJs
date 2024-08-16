@@ -1,18 +1,12 @@
-import { Home, LogInIcon, UserRoundPlusIcon } from "lucide-react";
+import { Home, LogInIcon, PaletteIcon, UserIcon, UserRoundPlusIcon } from "lucide-react";
 import { Logo } from "@/components/logo";
-import { INavItem } from "@/lib/types.ts";
-import { useAuth } from "@/store/use-auth.ts";
-import { NavDropdownMenu } from "./nav-dropdown-menu.tsx";
-import { NavSidebar } from "./nav-sidebar.tsx";
-import { NavThemeToggle } from "./nav-theme-toggle.tsx";
+import { INavItem } from "@/lib/types";
+import { useAuth } from "@/store/use-auth";
+import { NavDropdownMenu } from "./nav-dropdown-menu";
+import { NavSidebar } from "./nav-sidebar";
+import { NavThemeToggle } from "./nav-theme-toggle";
 
 const navItems: INavItem[] = [
-  {
-    title: "Home",
-    Icon: Home,
-    url: "/",
-    authRequired: true,
-  },
   {
     title: "SignIn",
     Icon: LogInIcon,
@@ -24,6 +18,24 @@ const navItems: INavItem[] = [
     Icon: UserRoundPlusIcon,
     url: "/signup",
     authRequired: false,
+  },
+  {
+    title: "Home",
+    Icon: Home,
+    url: "/",
+    authRequired: true,
+  },
+  {
+    title: "Profile",
+    Icon: UserIcon,
+    url: "/settings/profile",
+    authRequired: true,
+  },
+  {
+    title: "Appearances",
+    Icon: PaletteIcon,
+    url: "/settings/appearances",
+    authRequired: true,
   },
 ];
 
