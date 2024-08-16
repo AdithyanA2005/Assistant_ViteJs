@@ -8,6 +8,8 @@ import { Protected } from "@/components/protected.tsx";
 import { AuthProvider } from "@/components/providers/auth-provider.tsx";
 import { OverlaysProvider } from "@/components/providers/overlays-provider.tsx";
 import { ThemeProvider } from "@/components/providers/theme-provider.tsx";
+import { AppearanceSettings } from "@/components/settings/appearance";
+import { SettingsWrapper } from "@/components/settings/settings-wrapper.tsx";
 import { Home } from "./components/pages/home";
 
 function App() {
@@ -26,6 +28,10 @@ function App() {
             <Route path="/" element={<AuthWrapper />}>
               <Route path="/signin" element={<SignInCard goToSignUp={() => navigate("/signup")} />} />
               <Route path="/signup" element={<SignUpCard goToSignIn={() => navigate("/signin")} />} />
+            </Route>
+
+            <Route path="/settings" element={<SettingsWrapper />}>
+              <Route path="appearance" element={<AppearanceSettings />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" replace={true} />} />
