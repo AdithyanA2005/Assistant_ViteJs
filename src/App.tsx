@@ -9,6 +9,7 @@ import { AuthProvider } from "@/components/providers/auth-provider.tsx";
 import { OverlaysProvider } from "@/components/providers/overlays-provider.tsx";
 import { ThemeProvider } from "@/components/providers/theme-provider.tsx";
 import { AppearanceSettings } from "@/components/settings/appearance";
+import { ProfileSettings } from "@/components/settings/profile";
 import { SettingsWrapper } from "@/components/settings/settings-wrapper.tsx";
 import { Home } from "./components/pages/home";
 
@@ -31,7 +32,10 @@ function App() {
             </Route>
 
             <Route path="/settings" element={<SettingsWrapper />}>
+              <Route path="" element={<Navigate to="/settings/profile" />} />
+              <Route path="profile" element={<ProfileSettings />} />
               <Route path="appearance" element={<AppearanceSettings />} />
+              <Route path="*" element={<Navigate to="/settings/profile" />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" replace={true} />} />
