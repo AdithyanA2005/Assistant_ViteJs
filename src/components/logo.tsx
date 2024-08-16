@@ -6,7 +6,7 @@ interface NavLogoProps {
   className?: string;
 }
 
-export function NavLogo({ className }: NavLogoProps) {
+export function Logo({ className }: NavLogoProps) {
   return (
     <a
       href="/"

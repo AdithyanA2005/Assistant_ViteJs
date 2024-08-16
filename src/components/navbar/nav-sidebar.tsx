@@ -3,10 +3,10 @@ import { PanelLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Logo } from "@/components/logo";
 import { INavItem } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { NavItem } from "./nav-item.tsx";
-import { NavLogo } from "./nav-logo";
+import { NavItem } from "./nav-item";
 
 interface MobileNavProps {
   navItems: INavItem[];
@@ -33,7 +33,7 @@ export function NavSidebar({ navItems, className }: MobileNavProps) {
           </div>
 
           <nav className="flex h-full flex-col gap-6 text-lg font-medium">
-            <NavLogo />
+            <Logo />
 
             {navItems.map((navItem, index) => (
               <div key={index} onClick={() => setOpen(false)} className={cn(navItem.posBottom ? "mt-auto" : "")}>
