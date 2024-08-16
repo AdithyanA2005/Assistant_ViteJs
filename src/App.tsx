@@ -8,7 +8,7 @@ import { Protected } from "@/components/protected.tsx";
 import { AuthProvider } from "@/components/providers/auth-provider.tsx";
 import { OverlaysProvider } from "@/components/providers/overlays-provider.tsx";
 import { ThemeProvider } from "@/components/providers/theme-provider.tsx";
-import { Home } from "./components/home";
+import { Home } from "./components/pages/home";
 
 function App() {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
-import { Logo } from "@/components/logo.tsx";
-import { siteConfig } from "@/lib/config/site.ts";
+import { Logo } from "@/components/logo";
+import { siteConfig } from "@/lib/config/site";
 
 export function ChatWelcome() {
   return (
