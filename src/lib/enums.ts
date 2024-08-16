@@ -4,3 +4,9 @@ export enum EChatStatus {
   Resolved = "resolved",
   Rejected = "rejected",
 }
+
+export enum ETheme {
+  Light = "light",
+  Dark = "dark",
+  System = "system",
+}

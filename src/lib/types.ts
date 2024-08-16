@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Models } from "appwrite";
 import { LucideProps } from "lucide-react";
+import { ETheme } from "@/lib/enums";
 
 export interface INavItem {
   url: string;
@@ -17,6 +18,7 @@ export interface IChat {
 
 // APPWRITE
 export interface IUserPreferences {
+  theme?: ETheme;
   photoFileId?: string;
 }
 
