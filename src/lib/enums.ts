@@ -1,4 +1,4 @@
-export enum ChatStatus {
+export enum EChatStatus {
   Idle = "idle",
   Pending = "pending",
   Resolved = "resolved",
