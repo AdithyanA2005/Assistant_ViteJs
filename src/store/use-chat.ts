@@ -12,5 +12,6 @@ interface ChatStore {
 export const useChat = create<ChatStore>((set) => ({
   chats: [],
   addChat: (chat) => set((state) => ({ chats: [...state.chats, chat] })),
+  setStatus: (status) => set({ status }),
   status: ChatStatus.Idle,
 }));
