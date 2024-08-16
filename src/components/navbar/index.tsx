@@ -1,8 +1,10 @@
 import { Home } from "lucide-react";
-import { Logo } from "@/components/logo.tsx";
-import { NavSidebar } from "@/components/navbar/nav-sidebar.tsx";
-import { NavThemeToggle } from "@/components/navbar/nav-theme-toggle.tsx";
+import { Logo } from "@/components/logo";
 import { INavItem } from "@/lib/types.ts";
+import { useAuth } from "@/store/use-auth.ts";
+import { NavDropdownMenu } from "./nav-dropdown-menu.tsx";
+import { NavSidebar } from "./nav-sidebar.tsx";
+import { NavThemeToggle } from "./nav-theme-toggle.tsx";
 
 const navItems: INavItem[] = [
   {
@@ -14,6 +16,8 @@ const navItems: INavItem[] = [
 ];
 
 export function Navbar() {
+  const { isAuthLoading, authStatus } = useAuth();
+
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
       <div className="flex-1">
@@ -22,6 +26,7 @@ export function Navbar() {
 
       <NavThemeToggle />
       <NavSidebar navItems={navItems} />
+      {isAuthLoading ? <NavDropdownMenu.Skeleton /> : authStatus ? <NavDropdownMenu /> : null}
     </header>
   );
 }
