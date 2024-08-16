@@ -2,7 +2,7 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { redirect } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User, XIcon } from "lucide-react";
 import { z } from "zod";
@@ -76,6 +76,7 @@ export function ProfileForm() {
     mode: "onChange",
   });
   const fileRef = form.register("photo");
+  const navigate = useNavigate();
 
   const [user, setUser] = useState<IUser | null>(null);
   const [avatar, setAvatar] = useState<string>("");
@@ -144,7 +145,7 @@ export function ProfileForm() {
             title: `Uh oh! Something went wrong.`,
             description: "Unable to fetch current user",
           });
-          redirect("/");
+          navigate("/");
           return;
         }
 
@@ -162,7 +163,7 @@ export function ProfileForm() {
           title: `Uh oh! Something went wrong.`,
           description: "Unable to fetch current user",
         });
-        redirect("/");
+        navigate("/");
       }
     })();
   }, []);
