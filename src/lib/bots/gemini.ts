@@ -62,7 +62,6 @@ You primary aim to be there as a personal assistant for you user and help them`;
       });
 
       const result = await chatSession.sendMessage(prompt);
-      console.log(result.response.text());
       return result.response.text();
     } catch (error) {
       const errorReason: string = (error as { errorDetails: { reason: string }[] }).errorDetails[0].reason;
