@@ -3,6 +3,7 @@ import { MicIcon, SendHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { gemini } from "@/lib/bots/gemini";
+import { speak } from "@/lib/helpers/speech.ts";
 import { useChat } from "@/store/use-chat";
 
 export function PromptForm() {
@@ -24,7 +25,10 @@ export function PromptForm() {
     setIsThinking(true);
     gemini
       .run(prompt)
-      .then((response) => addBotChat(response))
+      .then((response) => {
+        addBotChat(response);
+        speak(response);
+      })
       .catch(() => addBotChat("Something went wrong", "failure"))
       .finally(() => setIsThinking(false));
   };
