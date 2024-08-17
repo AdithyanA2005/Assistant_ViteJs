@@ -11,9 +11,14 @@ export interface INavItem {
   authRequired: boolean;
 }
 
+export type IChatOwners = "user" | "bot";
+
+export type IChatStatus = "success" | "failure";
+
 export interface IChat {
   text: string;
-  owner: "user" | "bot";
+  owner: IChatOwners;
+  status: IChatStatus;
 }
 
 export interface ICommand {

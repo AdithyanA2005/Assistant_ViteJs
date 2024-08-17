@@ -1,17 +1,24 @@
 import { create } from "zustand";
-import { EChatStatus } from "@/lib/enums.ts";
-import { IChat } from "@/lib/types.ts";
+import { IChat, IChatStatus } from "@/lib/types.ts";
 
 interface ChatStore {
   chats: IChat[];
-  addChat: (chat: IChat) => void;
-  status: EChatStatus;
-  setStatus: (status: EChatStatus) => void;
+  addUserChat: (chat: string, status?: IChatStatus) => void;
+  addBotChat: (chat: string, status?: IChatStatus) => void;
+  isThinking: boolean;
+  setIsThinking: (isThinking: boolean) => void;
 }
 
 export const useChat = create<ChatStore>((set) => ({
   chats: [],
-  addChat: (chat) => set((state) => ({ chats: [...state.chats, chat] })),
-  setStatus: (status) => set({ status }),
-  status: EChatStatus.Idle,
+  isThinking: false,
+  setIsThinking: (isThinking) => set({ isThinking }),
+  addUserChat: (chat, status = "success") => {
+    const newChat: IChat = { text: chat, owner: "user", status };
+    set((state) => ({ chats: [...state.chats, newChat] }));
+  },
+  addBotChat: (chat, status = "success") => {
+    const newChat: IChat = { text: chat, owner: "bot", status };
+    set((state) => ({ chats: [...state.chats, newChat] }));
+  },
 }));
