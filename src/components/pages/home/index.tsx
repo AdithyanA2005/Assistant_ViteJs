@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useChat } from "@/store/use-chat";
 import { ChatSection } from "./chat-section";
 import { ChatWelcome } from "./chat-welcome";
@@ -5,6 +6,14 @@ import { PromptForm } from "./prompt-form";
 
 export function Home() {
   const { chats } = useChat();
+
+  useEffect(() => {
+    // Scroll to bottom when new chat is added
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [chats]);
 
   return (
     <main className="relative mx-auto min-h-[calc(100vh-3.5rem)] max-w-3xl pb-36 pt-8">
