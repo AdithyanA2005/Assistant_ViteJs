@@ -6,6 +6,7 @@ interface ImportMetaEnv {
   readonly VITE_AW_PROJECT_ID: string;
   readonly VITE_AW_DATABASE_ID: string;
   readonly VITE_AW_PROFILE_PHOTO_STORAGE_ID: string;
+  readonly VITE_GEMINI_API_KEY: string;
 }
 
 interface ImportMeta {
