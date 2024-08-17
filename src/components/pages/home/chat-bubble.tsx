@@ -1,3 +1,4 @@
+import Markdown from "markdown-to-jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import { IChat } from "@/lib/types.ts";
@@ -19,14 +20,11 @@ export function BotChatBubble({ chat }: BotChatBubbleProps) {
       </Avatar>
 
       <div className="max-w-[90%]">
-        <p
-          className={cn(
-            "text-md",
-            chat.status === "failure" && "rounded-xl border border-red-500 px-4 py-1.5 text-red-500",
-          )}
-        >
-          {chat.text}
-        </p>
+        {chat.status === "failure" ? (
+          <p className="text-md rounded-xl border border-red-500 px-4 py-1.5 text-red-500">{chat.text}</p>
+        ) : (
+          <Markdown>{chat.text}</Markdown>
+        )}
       </div>
     </div>
   );
