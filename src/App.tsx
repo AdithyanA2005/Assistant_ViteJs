@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Toaster } from "@/components/ui/toaster.tsx";
 import { LoadingWrapper } from "@/components/loading/loading-wrapper";
 import { Navbar } from "@/components/navbar";
 import { AuthWrapper } from "@/components/pages/auth/auth-wrapper";
@@ -42,6 +43,7 @@ function App() {
           </Route>
         </Routes>
 
+        <Toaster />
         <AuthProvider />
         <OverlaysProvider />
       </ThemeProvider>
