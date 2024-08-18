@@ -2,12 +2,14 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { MicIcon, SendHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/use-toast.ts";
+import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis.tsx";
 import { gemini } from "@/lib/bots/gemini";
-import { speak } from "@/lib/helpers/speech.ts";
 import { useChat } from "@/store/use-chat";
 
 export function PromptForm() {
   const { addUserChat, addBotChat, setIsThinking, isThinking } = useChat();
+  const { speak } = useSpeechSynthesis();
 
   const [prompt, setPrompt] = useState<string>("");
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true);
@@ -27,7 +29,14 @@ export function PromptForm() {
       .run(prompt)
       .then((response) => {
         addBotChat(response);
-        speak(response);
+        speak(response).catch((error) => {
+          console.error("Speech synthesis error:", error);
+          toast({
+            variant: "destructive",
+            title: "Speech Synthesis Error",
+            description: "An error occurred during speech synthesis. Please try again later.",
+          });
+        });
       })
       .catch(() => addBotChat("Something went wrong", "failure"))
       .finally(() => setIsThinking(false));
