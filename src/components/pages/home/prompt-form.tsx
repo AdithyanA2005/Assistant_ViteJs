@@ -1,45 +1,76 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { MicIcon, SendHorizontal } from "lucide-react";
+import { MicIcon, SendHorizontal, SquareIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast.ts";
+import { useSpeechRecognition } from "@/hooks/useSpeechRecognition.tsx";
 import { useSpeechSynthesis } from "@/hooks/useSpeechSynthesis.tsx";
 import { gemini } from "@/lib/bots/gemini";
+import { cn } from "@/lib/utils.ts";
 import { useChat } from "@/store/use-chat";
 
 export function PromptForm() {
-  const { addUserChat, addBotChat, setIsThinking, isThinking } = useChat();
-  const { speak } = useSpeechSynthesis();
-
   const [prompt, setPrompt] = useState<string>("");
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true);
 
+  const { speak } = useSpeechSynthesis();
+  const { isListening, listen, stopListening } = useSpeechRecognition();
+  const { addUserChat, addBotChat, setIsThinking, isThinking } = useChat();
+
+  // Function to send user input to the bot and receive a response and add both to the chat
+  const takeAction = async (query: string) => {
+    setIsThinking(true);
+    addUserChat(query);
+
+    try {
+      const response = await gemini.run(query);
+      addBotChat(response);
+      speak(response).catch((error) => {
+        console.error("Speech synthesis error:", error);
+        toast({
+          variant: "destructive",
+          title: "Speech Synthesis Error",
+          description: "An error occurred during speech synthesis. Please try again later.",
+        });
+      });
+    } catch {
+      addBotChat("Something went wrong", "failure");
+    } finally {
+      setIsThinking(false);
+    }
+  };
+
+  // Function to handle input change
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPrompt(value);
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // Function to handle form submission
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addUserChat(prompt);
     setPrompt("");
+    await takeAction(prompt);
+  };
 
-    setIsThinking(true);
-    gemini
-      .run(prompt)
-      .then((response) => {
-        addBotChat(response);
-        speak(response).catch((error) => {
-          console.error("Speech synthesis error:", error);
-          toast({
-            variant: "destructive",
-            title: "Speech Synthesis Error",
-            description: "An error occurred during speech synthesis. Please try again later.",
-          });
-        });
-      })
-      .catch(() => addBotChat("Something went wrong", "failure"))
-      .finally(() => setIsThinking(false));
+  // Function to handle voice button click
+  const onVoiceClick = async () => {
+    if (isListening) {
+      stopListening();
+      return;
+    }
+
+    try {
+      const recognizedText = await listen();
+      await takeAction(recognizedText);
+    } catch (error) {
+      console.error("Speech recognition error:", (error as { message: string }).message);
+      toast({
+        variant: "destructive",
+        title: "Speech Recognition Error",
+        description: "An error occurred during speech recognition. Please try again later.",
+      });
+    }
   };
 
   // Disable submit button when prompt is empty or bot is thinking
@@ -66,8 +97,20 @@ export function PromptForm() {
         </Button>
       </div>
 
-      <Button variant="ghost" size="icon" className="size-12 rounded-full">
-        <MicIcon className="h-6 w-6 text-primary" />
+      <Button
+        disabled={isThinking}
+        onClick={onVoiceClick}
+        type="button"
+        variant="ghost"
+        size="icon"
+        className={cn(
+          "size-12 rounded-full",
+          isListening
+            ? "bg-accent-foreground/80 text-primary-foreground hover:bg-accent-foreground hover:text-primary-foreground"
+            : "text-primary",
+        )}
+      >
+        {isListening ? <SquareIcon className="size-5" /> : <MicIcon className="h-6 w-6" />}
       </Button>
     </form>
   );
