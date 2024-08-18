@@ -36,9 +36,9 @@ export function useSpeechSynthesis(): UseSpeechSynthesis {
         utteranceRef.current.rate = 1.0; // Adjust rate as needed
         utteranceRef.current.pitch = 1.0; // Adjust pitch as needed
 
-        // Select voice - My preferred voices are (Samantha, 0) or (Aaron, 1) or (Nicky, 93)
+        // Select voice - My preferred voices are (Samantha, 0) or (Aaron, 1) or (Nicky, 93) or (Google Hindi, 164)
         const voices = speechSynthesis.getVoices();
-        utteranceRef.current.voice = voices[93];
+        utteranceRef.current.voice = voices[1];
       }
 
       utteranceRef.current.onstart = () => {
